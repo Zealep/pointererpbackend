@@ -22,7 +22,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public List<MenuDTO> findByModulo(String modulo) {
-        List<Menu> menuList = menuRepository.findByModulo(Constantes.ID_MODULO).orElse(null);
+        List<Menu> menuList = menuRepository.findByModulo(modulo).orElse(null);
 
         MenuTree menuTree = new MenuTree(menuList);
         List<Menu> menuDTOList = menuTree.builTree();

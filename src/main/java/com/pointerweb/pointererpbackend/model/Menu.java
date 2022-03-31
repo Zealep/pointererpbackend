@@ -1,11 +1,26 @@
 package com.pointerweb.pointererpbackend.model;
 
+import com.pointerweb.pointererpbackend.model.dto.UsuarioModulo;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "opcionesmenu")
+@SqlResultSetMapping(
+        name="getModulosUsuarioMapping",
+        classes={
+                @ConstructorResult(
+                        targetClass= UsuarioModulo.class,
+                        columns={
+                                @ColumnResult(name="idModulo",type = String.class),
+                                @ColumnResult(name="GlsModulo",type = String.class)
+                        }
+                )
+        }
+)
+@NamedNativeQuery(name="Menu.getModulosUsuario", query="CALL spu_Web_SelModulosUsuarios(:usuario)", resultSetMapping="getModulosUsuarioMapping")
 public class Menu implements Serializable {
 
     @Id
