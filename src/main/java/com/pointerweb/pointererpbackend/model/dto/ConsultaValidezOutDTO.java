@@ -23,10 +23,46 @@ public class ConsultaValidezOutDTO {
     private String idSunatEstadoDocumento;
     private String idSunatEstadoProveedor;
     private String idSunatEstadoDomicilioProveedor;
+    private String glsSunatEstadoDocumento;
+    private String glsSunatEstadoProveedor;
+    private String glsSunatEstadoDomicilioProveedor;
+    private String glsSunatObservacionesDocumento;
     private String idDocumento;
     private String glsRuc;
     private String idRegistroCompra;
     private BigDecimal totalPrecioCompra;
+
+    public String getGlsSunatEstadoDocumento() {
+        return glsSunatEstadoDocumento;
+    }
+
+    public void setGlsSunatEstadoDocumento(String glsSunatEstadoDocumento) {
+        this.glsSunatEstadoDocumento = glsSunatEstadoDocumento;
+    }
+
+    public String getGlsSunatEstadoProveedor() {
+        return glsSunatEstadoProveedor;
+    }
+
+    public void setGlsSunatEstadoProveedor(String glsSunatEstadoProveedor) {
+        this.glsSunatEstadoProveedor = glsSunatEstadoProveedor;
+    }
+
+    public String getGlsSunatEstadoDomicilioProveedor() {
+        return glsSunatEstadoDomicilioProveedor;
+    }
+
+    public void setGlsSunatEstadoDomicilioProveedor(String glsSunatEstadoDomicilioProveedor) {
+        this.glsSunatEstadoDomicilioProveedor = glsSunatEstadoDomicilioProveedor;
+    }
+
+    public String getGlsSunatObservacionesDocumento() {
+        return glsSunatObservacionesDocumento;
+    }
+
+    public void setGlsSunatObservacionesDocumento(String glsSunatObservacionesDocumento) {
+        this.glsSunatObservacionesDocumento = glsSunatObservacionesDocumento;
+    }
 
     public String getIdRegistroCompra() {
         return idRegistroCompra;

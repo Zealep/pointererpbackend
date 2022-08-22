@@ -9,5 +9,7 @@ import java.util.List;
 
 public interface ConsultaValidezDocumentoService {
 
-    List<ConsultaValidezOutDTO> bandejaConsultaAll(ConsultaValidezInDTO consultaValidezInDTO);
+    List<ConsultaValidezOutDTO> bandejaConsultaSunat(ConsultaValidezInDTO consultaValidezInDTO);
+
+    List<ConsultaValidezOutDTO> bandejaConsultaPointer(ConsultaValidezInDTO consultaValidezInDTO);
 }

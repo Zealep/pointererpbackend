@@ -27,7 +27,17 @@ public class ConsultaValidezController {
     @PostMapping(value = "/bandejaConsultaValidez",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ConsultaValidezOutDTO>> getDatos(@RequestBody ConsultaValidezInDTO consultaValidezInDTO){
         try{
-            return new ResponseEntity<List<ConsultaValidezOutDTO>>(consultaValidezDocumentoService.bandejaConsultaAll(consultaValidezInDTO), HttpStatus.OK);
+            return new ResponseEntity<List<ConsultaValidezOutDTO>>(consultaValidezDocumentoService.bandejaConsultaPointer(consultaValidezInDTO), HttpStatus.OK);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping(value = "/bandejaConsultaValidezSunat",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<ConsultaValidezOutDTO>> getDatosSunat(@RequestBody ConsultaValidezInDTO consultaValidezInDTO){
+        try{
+            return new ResponseEntity<List<ConsultaValidezOutDTO>>(consultaValidezDocumentoService.bandejaConsultaSunat(consultaValidezInDTO), HttpStatus.OK);
         }
         catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);

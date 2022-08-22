@@ -7,6 +7,7 @@ import com.pointerweb.pointererpbackend.model.dto.sunat.SunatValidarDocumentoRes
 import com.pointerweb.pointererpbackend.repository.jdbc.ConsultaValidezDocumentosRepository;
 import com.pointerweb.pointererpbackend.service.ConsultaValidezDocumentoService;
 import com.pointerweb.pointererpbackend.service.SunatService;
+import com.pointerweb.pointererpbackend.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -25,13 +26,13 @@ public class ConsultaValidezDocumentoServiceImpl implements ConsultaValidezDocum
     SunatService sunatService;
 
     @Override
-    public List<ConsultaValidezOutDTO> bandejaConsultaAll(ConsultaValidezInDTO consultaValidezInDTO) {
+    public List<ConsultaValidezOutDTO> bandejaConsultaSunat(ConsultaValidezInDTO consultaValidezInDTO) {
         List<ConsultaValidezOutDTO> bandejaPointer = consultaValidezDocumentosRepository.bandejaConsultaValidez(consultaValidezInDTO);
 
         for(ConsultaValidezOutDTO c:bandejaPointer){
 
             if(c.getIdSunatEstadoDocumento() != null){
-                if(c.getIdSunatEstadoDocumento().equals("0")){
+                if(c.getIdSunatEstadoDocumento().equals("0") || c.getIdSunatEstadoDocumento().equals("")){
                     SunatValidarDocumentoResponse s = this.consultarDatosSunat(c);
                     this.insertarDatosSunat(s,c.getIdRegistroCompra());
                 }
@@ -63,4 +64,8 @@ public class ConsultaValidezDocumentoServiceImpl implements ConsultaValidezDocum
         consultaValidezDocumentosRepository.insertarDatosSunat(s,idRegistroCompra);
     }
 
+    @Override
+    public List<ConsultaValidezOutDTO> bandejaConsultaPointer(ConsultaValidezInDTO consultaValidezInDTO) {
+        return consultaValidezDocumentosRepository.bandejaConsultaValidez(consultaValidezInDTO);
+    }
 }

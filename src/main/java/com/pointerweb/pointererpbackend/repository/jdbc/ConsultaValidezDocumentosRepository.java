@@ -83,6 +83,13 @@ public class ConsultaValidezDocumentosRepository {
             t.setTotalPrecioCompra(rs.getBigDecimal("TotalPrecioCompra"));
             t.setGlsRuc(rs.getString("glsRuc"));
             t.setIdRegistroCompra(rs.getString("idRegistroCompra"));
+            t.setIdSunatEstadoDocumento(rs.getString("idSunatEstadoDocumento"));
+            t.setGlsSunatEstadoDocumento(rs.getString("glsSunatEstadoDocumento"));
+            t.setIdSunatEstadoProveedor(rs.getString("idSunatEstadoProveedor"));
+            t.setGlsSunatEstadoProveedor(rs.getString("glsSunatEstadoProveedor"));
+            t.setIdSunatEstadoDomicilioProveedor(rs.getString("idSunatEstadoDomicilioProveedor"));
+            t.setGlsSunatEstadoDomicilioProveedor(rs.getString("glsSunatEstadoDomicilioProveedor"));
+            t.setGlsSunatObservacionesDocumento(rs.getString("glsSunatObservacionesDocumento"));
             return t;
 
         }
@@ -95,7 +102,7 @@ public class ConsultaValidezDocumentosRepository {
         params.put("var3",s.getData().getCondDomiRuc());
         params.put("var4",idRegistroCompra);
         jdbcTemplate.update(
-                "INSERT INTO registrocompras (idSunatEstadoDocumento, idSunatEstadoProveedor,idSunatEstadoDomicilioProveedor) VALUES (:var1, :var2,:var3) WHERE idRegistroCompra = :var4",
+                "UPDATE registrocompras set idSunatEstadoDocumento=:var1, idSunatEstadoProveedor = :var2 , idSunatEstadoDomicilioProveedor = :var3 WHERE idRegistroCompra = :var4 ;",
                 params
         );
     }
