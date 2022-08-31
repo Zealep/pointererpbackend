@@ -21,6 +21,7 @@ public class SunatController {
     @Autowired
     SunatService sunatService;
 
+
     @GetMapping(value = "/token")
     private ResponseEntity<SunatTokenResponse> token(){
     try {

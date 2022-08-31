@@ -35,6 +35,9 @@ public class SunatServiceImpl implements SunatService {
     @Value("${api.sunat.login}")
     private String urlApi;
 
+    @Value("${ruc.empresa}")
+    private String rucEmpresa;
+
     @Override
     public SunatTokenResponse token() {
 
@@ -60,7 +63,7 @@ public class SunatServiceImpl implements SunatService {
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         headers.setBearerAuth(token.getAccess_token());
         HttpEntity<SunatValidarDocumentoRequest> entity = new HttpEntity<>(sunatValidarDocumentoRequest, headers);
-        ResponseEntity<SunatValidarDocumentoResponse> response = restTemplate.exchange(scope+"/"+sunatValidarDocumentoRequest.getNumRuc()+"/validarcomprobante", HttpMethod.POST, entity, SunatValidarDocumentoResponse.class);
+        ResponseEntity<SunatValidarDocumentoResponse> response = restTemplate.exchange(scope+"/"+rucEmpresa+"/validarcomprobante", HttpMethod.POST, entity, SunatValidarDocumentoResponse.class);
         return response.getBody();
 
     }

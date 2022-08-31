@@ -31,6 +31,15 @@ public class ConsultaValidezOutDTO {
     private String glsRuc;
     private String idRegistroCompra;
     private BigDecimal totalPrecioCompra;
+    private String abreDocumento;
+
+    public String getAbreDocumento() {
+        return abreDocumento;
+    }
+
+    public void setAbreDocumento(String abreDocumento) {
+        this.abreDocumento = abreDocumento;
+    }
 
     public String getGlsSunatEstadoDocumento() {
         return glsSunatEstadoDocumento;
