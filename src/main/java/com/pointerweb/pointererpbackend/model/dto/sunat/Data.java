@@ -1,5 +1,8 @@
 package com.pointerweb.pointererpbackend.model.dto.sunat;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import java.util.List;
 
 public class Data {

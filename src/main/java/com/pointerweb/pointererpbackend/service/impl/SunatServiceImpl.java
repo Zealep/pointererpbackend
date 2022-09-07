@@ -1,5 +1,7 @@
 package com.pointerweb.pointererpbackend.service.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pointerweb.pointererpbackend.model.dto.sunat.SunatTokenResponse;
 import com.pointerweb.pointererpbackend.model.dto.sunat.SunatValidarDocumentoRequest;
 import com.pointerweb.pointererpbackend.model.dto.sunat.SunatValidarDocumentoResponse;
@@ -10,6 +12,8 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Collections;
@@ -56,15 +60,24 @@ public class SunatServiceImpl implements SunatService {
     }
 
     @Override
-    public SunatValidarDocumentoResponse validarDocumento(SunatValidarDocumentoRequest sunatValidarDocumentoRequest) {
-        SunatTokenResponse token = this.token();
+    public SunatValidarDocumentoResponse validarDocumento(SunatValidarDocumentoRequest sunatValidarDocumentoRequest)  {
+        try{
+            SunatTokenResponse token = this.token();
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-        headers.setBearerAuth(token.getAccess_token());
-        HttpEntity<SunatValidarDocumentoRequest> entity = new HttpEntity<>(sunatValidarDocumentoRequest, headers);
-        ResponseEntity<SunatValidarDocumentoResponse> response = restTemplate.exchange(scope+"/"+rucEmpresa+"/validarcomprobante", HttpMethod.POST, entity, SunatValidarDocumentoResponse.class);
-        return response.getBody();
-
+            HttpHeaders headers = new HttpHeaders();
+            headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+            headers.setBearerAuth(token.getAccess_token());
+            HttpEntity<SunatValidarDocumentoRequest> entity = new HttpEntity<>(sunatValidarDocumentoRequest, headers);
+            ResponseEntity<SunatValidarDocumentoResponse> response = restTemplate.exchange(scope+"/"+rucEmpresa+"/validarcomprobante", HttpMethod.POST, entity, SunatValidarDocumentoResponse.class);
+            return response.getBody();
+        }
+        catch(RestClientException e){
+            String salida = ((HttpClientErrorException.UnprocessableEntity) e).getResponseBodyAsString();
+            System.out.println(salida);
+            SunatValidarDocumentoResponse s = new SunatValidarDocumentoResponse();
+            s.setSuccess(false);
+            s.setMessage(salida);
+            return s;
+        }
     }
 }

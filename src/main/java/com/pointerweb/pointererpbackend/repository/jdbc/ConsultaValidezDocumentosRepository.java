@@ -100,19 +100,35 @@ public class ConsultaValidezDocumentosRepository {
 
     public void insertarDatosSunat(SunatValidarDocumentoResponse s,String idRegistroCompra){
        String obs ="";
-        if(s.getData()!=null && s.getData().getObservaciones()!=null){
-            obs = Arrays.toString(s.getData().getObservaciones().toArray());
+        Map<String, Object> params = new HashMap<>();
+       if(s.isSuccess()){
+           if(s.getData()!=null && s.getData().getObservaciones()!=null){
+               obs = Arrays.toString(s.getData().getObservaciones().toArray());
+           }
+
+           params.put("var1",s.getData().getEstadoCp());
+           params.put("var2",s.getData().getEstadoRuc());
+           params.put("var3",s.getData().getCondDomiRuc());
+           params.put("var4", obs);
+           params.put("var5",idRegistroCompra);
+           jdbcTemplate.update(
+                   "UPDATE registrocompras set idSunatEstadoDocumento=:var1, idSunatEstadoProveedor = :var2 , idSunatEstadoDomicilioProveedor = :var3 , glsSunatObservacionesDocumento= :var4 WHERE idRegistroCompra = :var5 ;",
+                   params
+           );
+       }
+       else{
+           params.put("var1",s.getMessage());
+           params.put("var2",idRegistroCompra);
+           jdbcTemplate.update(
+                   "UPDATE registrocompras set glsSunatObservacionesDocumento= :var1 WHERE idRegistroCompra = :var2 ;",
+                   params
+           );
+
        }
 
-        Map<String, Object> params = new HashMap<>();
-        params.put("var1",s.getData().getEstadoCp());
-        params.put("var2",s.getData().getEstadoRuc());
-        params.put("var3",s.getData().getCondDomiRuc());
-        params.put("var4", obs);
-        params.put("var5",idRegistroCompra);
-        jdbcTemplate.update(
-                "UPDATE registrocompras set idSunatEstadoDocumento=:var1, idSunatEstadoProveedor = :var2 , idSunatEstadoDomicilioProveedor = :var3 , glsSunatObservacionesDocumento= :var4 WHERE idRegistroCompra = :var5 ;",
-                params
-        );
+
+
+
+
     }
 }
